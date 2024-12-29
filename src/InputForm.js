@@ -11,6 +11,7 @@ import DomainKnowledge from "./components/DomainKnowledge";
 import Achievements from "./components/Achievements";
 import SaveButton from "./components/SaveButton";
 
+
 const InputForm = ({ setUserData }) => {
   const [formData, setFormData] = useState({
     personalInfo: { photo: null },
@@ -80,44 +81,36 @@ const InputForm = ({ setUserData }) => {
     },
     certifications: [],
     internships: [],
-    projects: [], // Projects array
-    skills: [], // Skills array
-    domainKnowledge: [], // Domain Knowledge array
-    achievements: [] // Achievements array
+    projects: [],
+    skills: [],
+    domainKnowledge: [],
+    achievements: [],
   });
- 
-  
 
   const handleInputChange = (section, field, value) => {
     setFormData((prev) => {
-        const updated = { ...prev }; // Avoid JSON.parse/stringify for shallow copying
-
-        if (!field) {
-            updated[section] = value;
-        } else if (field.includes(".")) {
-            const keys = field.split(".");
-            let target = updated[section];
-
-            keys.slice(0, -1).forEach((key) => {
-                if (!target[key] || typeof target[key] !== "object") {
-                    target[key] = {}; // Ensure intermediate objects exist
-                }
-                target = target[key];
-            });
-
-            target[keys[keys.length - 1]] = value;
-        } else {
-            updated[section][field] = value;
-        }
-
-        if (setUserData) {
-            setUserData(updated); // Update parent state only once per change
-        }
-
-        return updated;
+      const updated = { ...prev };
+      if (!field) {
+        updated[section] = value;
+      } else if (field.includes(".")) {
+        const keys = field.split(".");
+        let target = updated[section];
+        keys.slice(0, -1).forEach((key) => {
+          if (!target[key] || typeof target[key] !== "object") {
+            target[key] = {};
+          }
+          target = target[key];
+        });
+        target[keys[keys.length - 1]] = value;
+      } else {
+        updated[section][field] = value;
+      }
+      if (setUserData) {
+        setUserData(updated);
+      }
+      return updated;
     });
-};
-
+  };
 
   const addItem = (section, template) => {
     setFormData((prev) => {
@@ -127,46 +120,40 @@ const InputForm = ({ setUserData }) => {
     });
   };
 
-  const saveFormData = (data) => {
-    console.log("Saving form data:", data);
-    alert("Form data has been saved successfully!");
+  const saveFormData = async (data) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/save-form-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        alert("Form data has been saved successfully!");
+      } else {
+        alert("Failed to save form data.");
+      }
+    } catch (error) {
+      console.error("Error saving form data:", error);
+      alert("An error occurred while saving the form data.");
+    }
   };
-  
 
   return (
     <div className="max-w-3xl mx-auto bg-gray-50 p-6 shadow-lg rounded-lg space-y-6 overflow-auto h-screen">
       {/* Scrollable Sections with responsive layout */}
       <div className="space-y-6 flex flex-col">
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <PersonalInfo personalInfo={formData.personalInfo} handleInputChange={handleInputChange} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <BasicInfo basicInfo={formData.basicInfo} handleInputChange={handleInputChange} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Summary summary={formData.summary} handleInputChange={handleInputChange} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Education education={formData.education} handleInputChange={handleInputChange} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Certifications certifications={formData.certifications} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Internships internships={formData.internships} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Projects projects={formData.projects} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Skills skills={formData.skills} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <DomainKnowledge domainKnowledge={formData.domainKnowledge} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
-        <div className="space-y-4 overflow-y-auto max-h-[400px] sm:max-h-[500px]">
-          <Achievements achievements={formData.achievements} handleInputChange={handleInputChange} addItem={addItem} />
-        </div>
+        <PersonalInfo personalInfo={formData.personalInfo} handleInputChange={handleInputChange} />
+        <BasicInfo basicInfo={formData.basicInfo} handleInputChange={handleInputChange} />
+        <Summary summary={formData.summary} handleInputChange={handleInputChange} />
+        <Education education={formData.education} handleInputChange={handleInputChange} />
+        <Certifications certifications={formData.certifications} handleInputChange={handleInputChange} addItem={addItem} />
+        <Internships internships={formData.internships} handleInputChange={handleInputChange} addItem={addItem} />
+        <Projects projects={formData.projects} handleInputChange={handleInputChange} addItem={addItem} />
+        <Skills skills={formData.skills} handleInputChange={handleInputChange} addItem={addItem} />
+        <DomainKnowledge domainKnowledge={formData.domainKnowledge} handleInputChange={handleInputChange} addItem={addItem} />
+        <Achievements achievements={formData.achievements} handleInputChange={handleInputChange} addItem={addItem} />
       </div>
 
       {/* Save Button */}
