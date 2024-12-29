@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'; 
 import Login from './pages/Login';
@@ -59,6 +59,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId="63040349079-hiudh192bior54ll4chg20ge6vf0m1l7.apps.googleusercontent.com">
     <Router>
+      <Chatbot/>
       <Routes>
       <Route path="/" element={<LandingPage/>} />
         <Route path="/login" element={<Login />} />
