@@ -33,6 +33,7 @@ const InputForm = ({ setUserData }) => {
       github: "https://github.com/johndoe",
     },
     summary: "",
+    jobsummary:"",
     education: {
       ssc: {
         institution: "",
@@ -85,6 +86,7 @@ const InputForm = ({ setUserData }) => {
     skills: [],
     domainKnowledge: [],
     achievements: [],
+    processed:false,
   });
 
   const handleInputChange = (section, field, value) => {
@@ -122,22 +124,28 @@ const InputForm = ({ setUserData }) => {
 
   const saveFormData = async (data) => {
     try {
+      const json_data = JSON.stringify(formData); // Correct placement and name of variable
+      console.log(json_data);
+    
       const response = await fetch("http://localhost:5000/api/save-form-data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
-        body: JSON.stringify(data),
+        body: json_data, // Use the correct variable name here
       });
+    
       if (response.ok) {
         alert("Form data has been saved successfully!");
       } else {
         alert("Failed to save form data.");
       }
     } catch (error) {
-      console.error("Error saving form data:", error);
-      alert("An error occurred while saving the form data.");
+      console.error("Error:", error);
+      alert("An error occurred while saving form data.");
     }
+    
   };
 
   return (
@@ -154,6 +162,7 @@ const InputForm = ({ setUserData }) => {
         <Skills skills={formData.skills} handleInputChange={handleInputChange} addItem={addItem} />
         <DomainKnowledge domainKnowledge={formData.domainKnowledge} handleInputChange={handleInputChange} addItem={addItem} />
         <Achievements achievements={formData.achievements} handleInputChange={handleInputChange} addItem={addItem} />
+      
       </div>
 
       {/* Save Button */}

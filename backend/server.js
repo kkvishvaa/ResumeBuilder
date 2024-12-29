@@ -23,6 +23,25 @@ mongoose.connect("mongodb+srv://osama131221:sainath2005@cluster0.e2ck1.mongodb.n
 
 const FormDataSchema = new mongoose.Schema({}, { strict: false });
 const FormData = mongoose.model("FormData", FormDataSchema);
+// Job Description Schema
+const JobDescriptionSchema = new mongoose.Schema({
+  description: String,
+}, { timestamps: true });
+
+const JobDescription = mongoose.model("JobDescription", JobDescriptionSchema);
+
+// Job Description POST route
+app.post("/api/job-description", async (req, res) => {
+  try {
+    const { jobDescription } = req.body;
+    const jobDescriptionData = new JobDescription({ description: jobDescription });
+    await jobDescriptionData.save();
+    res.status(200).json({ message: "Job description saved successfully!" });
+  } catch (error) {
+    console.error("Error saving job description:", error);
+    res.status(500).json({ message: "Failed to save job description." });
+  }
+});
 
 app.post("/api/save-form-data", async (req, res) => {
   try {
@@ -32,6 +51,14 @@ app.post("/api/save-form-data", async (req, res) => {
   } catch (error) {
     console.error("Error saving form data:", error);
     res.status(500).json({ message: "Failed to save form data." });
+  }
+});
+app.get("/api/ats_analysis_results", async (req, res) => {
+  try {
+    const users = await User.find({analysis});
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving users", error });
   }
 });
 
