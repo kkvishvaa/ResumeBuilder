@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'; 
 import Login from './pages/Login';
 import RegistrationForm from './pages/RegistrationForm';
@@ -20,41 +20,41 @@ import Chatbot from './components/Chatbot';
 //import InputForm from "./InputForm";
 //import LivePreview from "./LivePreview";
 function App() {
-  const [selectedTemplate, setSelectedTemplate] = useState('');
+  // const [selectedTemplate, setSelectedTemplate] = useState('');
   // const [jobDetails, setJobDetails] = useState({});
-  const [userData, setUserData] = useState({
-    basicInfo: {
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      designation: '',
-      address: {
-        line: '',
-        city: '',
-        state: '',
-        country: '',
-        pincode: '',
-      },
-      email: '',
-      mobile: '',
-      linkedIn: '',
-      github: '',
-    },
-    photo: null, // Expecting a File object for upload
-    summary: '',
-    education: {
-      school: {},
-      intermediate: {},
-      graduate: {},
-      postGraduate: {},
-    },
-    certifications: [],
-    internships: [],
-    projects: [],
-    skills: [],
-    domainKnowledge: [],
-    achievements: [],
-  });
+  // const [userData, setUserData] = useState({
+  //   basicInfo: {
+  //     firstName: '',
+  //     middleName: '',
+  //     lastName: '',
+  //     designation: '',
+  //     address: {
+  //       line: '',
+  //       city: '',
+  //       state: '',
+  //       country: '',
+  //       pincode: '',
+  //     },
+  //     email: '',
+  //     mobile: '',
+  //     linkedIn: '',
+  //     github: '',
+  //   },
+  //   photo: null, // Expecting a File object for upload
+  //   summary: '',
+  //   education: {
+  //     school: {},
+  //     intermediate: {},
+  //     graduate: {},
+  //     postGraduate: {},
+  //   },
+  //   certifications: [],
+  //   internships: [],
+  //   projects: [],
+  //   skills: [],
+  //   domainKnowledge: [],
+  //   achievements: [],
+  // });
  
   return (
     <GoogleOAuthProvider clientId="63040349079-hiudh192bior54ll4chg20ge6vf0m1l7.apps.googleusercontent.com">
