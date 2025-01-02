@@ -65,7 +65,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/domains" element={<DomainListPage />} />
-        <Route path="/chat" element={<Chatbot />} />
+       
         {/* <Route path="/template" element={<TemplateSelectionPage setSelectedTemplate={setSelectedTemplate}
               setJobDetails={setJobDetails}/>} /> */}
         {/* <Route path="/classic" element={<ClassicTemplate/>} /> */}
