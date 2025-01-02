@@ -12,7 +12,7 @@ import GenerateResume from './pages/GenerateResume';
 import TIL from './pages/TIL';
 import LandingPage from './pages/LandingPage';
 import ResumeUploader from './ResumeUploader';
-// import Chatbot from './components/Chatbot';
+import Chatbot from './components/Chatbot';
 // import ClassicTemplate from './ClassicTemplate';
 // import Resume from './Resume';
 // import Resume2 from './Resume2';
@@ -59,13 +59,13 @@ function App() {
   return (
     <GoogleOAuthProvider clientId="63040349079-hiudh192bior54ll4chg20ge6vf0m1l7.apps.googleusercontent.com">
     <Router>
-      {/* <Chatbot/> */}
+      <Chatbot/>
       <Routes>
       <Route path="/" element={<LandingPage/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/domains" element={<DomainListPage />} />
-       
+        <Route path="/chat" element={<Chatbot />} />
         {/* <Route path="/template" element={<TemplateSelectionPage setSelectedTemplate={setSelectedTemplate}
               setJobDetails={setJobDetails}/>} /> */}
         {/* <Route path="/classic" element={<ClassicTemplate/>} /> */}
