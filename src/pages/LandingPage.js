@@ -141,8 +141,9 @@ const LandingPage = () => {
                     ))}
                 </motion.div>
             </div>
-
+            <div>
             <TextSphere />
+            </div>
             {/* How It Works Section */}
             <div id="how-it-works" className="mt-20 max-w-6xl mx-auto px-4 text-center">
                 <h3 className="text-4xl font-semibold text-white mb-10">
